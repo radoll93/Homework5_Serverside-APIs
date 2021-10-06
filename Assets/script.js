@@ -10,7 +10,31 @@ var searchcontainer = document.querySelector('.search-container');
 var apikey = "39aadcf6aa3fa19cfd9358b380b3f26c";
 var cities = [];
 
-
+$(function () {
+    var citylist = [
+      'New York',
+      'Los Angeles',
+      'San Antonio',
+      'Chicago',
+      'Houston',
+      'Phoenix',
+      'Philadelphia',
+      'San Diego',
+      'Dallas',
+      'San Jose',
+      'Austin',
+      'Jacksonville',
+      'San Francisco',
+      'Charlotte',
+      'Seattle',
+      'Boston',
+      'Washington',
+      'Atlanta',
+    ];
+    $('#cityinput').autocomplete({
+      source: citylist,
+    });
+  });
 
 
 
