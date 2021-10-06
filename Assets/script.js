@@ -2,12 +2,14 @@
 
 var searchbtn = $('.btn');
 var formEl = $('.form-control');
+var bodycontainer = $('.body-container')
 var searchlist = $('.search-list')
-var todaydiv = $('.today-weather');
+
 var searchcontainer = document.querySelector('.search-container');
-var forecastdiv = document.querySelector('.forecast-weather');
+
 var apikey = "39aadcf6aa3fa19cfd9358b380b3f26c";
 var cities = [];
+
 
 
 
@@ -17,19 +19,34 @@ searchbtn.on("click", function citySubmit (event) {
 
     var city = formEl.val();
 
-    if(city) {
+    if(bodycontainer[0].children.length > 0) {
+
+        $('.today-weather').remove();
+        $('.forecast-weather').remove();
+        $(".forecast_title").remove()
+
+        cities.push(city);
+        localStorage.setItem("cities", JSON.stringify(cities));
+ 
+        weather(city);
+        formEl.val('');
+
+    } else{
+
+
         cities.push(city);
         localStorage.setItem("cities", JSON.stringify(cities));
 
         weather(city);
         formEl.val('');
-        return;
-    } 
+
+     }
+
 
 })
 
 
-//search to local & make list
+//search to local & make btn
 
 function makelist () {
     var ulEl = document.createElement('ul');
@@ -58,6 +75,8 @@ function makelist () {
 
 makelist();
 
+
+
 var citybtn = $('.city-btn');
 
 citybtn.on("click", function cityClick (event) {
@@ -65,11 +84,23 @@ citybtn.on("click", function cityClick (event) {
 
     var city = $(this)[0].innerText;
 
-    if(city) {
+    if(bodycontainer[0].children.length > 0) {
+        $('.today-weather').remove();
+        $('.forecast-weather').remove();
+        $(".forecast_title").remove()
+
+
         weather(city);
         formEl.val('');
-        return;
+
+    } else {
+        weather(city);
+        formEl.val('');
+
     }
+
+
+
 })
 
 
@@ -77,9 +108,7 @@ citybtn.on("click", function cityClick (event) {
 
 function weather(city) {
 
-
     var URL = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&units=imperial&appid="+apikey;
-
 
 
     fetch(URL)
@@ -99,6 +128,11 @@ function displayWeather(data) {
     var lon = data.coord.lon;
 
     var UVURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat+ "&lon="+lon+"&exclude=minutely,hourly&units=imperial&appid=" +apikey;
+
+    var todaydiv = document.createElement('div');
+    todaydiv.classList = 'today-weather border border-dark p-1';
+
+    bodycontainer.append(todaydiv);
 
     fetch(UVURL)
     .then(function (response) {
@@ -124,6 +158,7 @@ function displayWeather(data) {
     })
 
 
+
     
     var today = moment().format("MM/DD/YYYY");
     var displayCity = document.createElement('h2');
@@ -142,8 +177,12 @@ function displayWeather(data) {
     displayWind.textContent = "Wind: " + data.wind.speed +" MPH";
 
 
-    todaydiv.addClass('border border-dark p-1');
-    todaydiv.append(displayCity).append(displayOverall).append(displayTemp).append(displayHumidity).append(displayWind);
+
+    todaydiv.append(displayCity);
+    todaydiv.append(displayOverall)
+    todaydiv.append(displayTemp)
+    todaydiv.append(displayHumidity)
+    todaydiv.append(displayWind);
 
 }
 
@@ -151,7 +190,6 @@ function displayWeather(data) {
 
 //weather forecast API & display
 
-var title = $('.title');
 
 
 function displayforecast (data) {
@@ -161,13 +199,24 @@ function displayforecast (data) {
 
     var forecastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat+ "&lon="+lon+"&exclude=minutely,hourly&units=imperial&appid=" +apikey;
 
+
+    var forecasttitle = document.createElement('h3');
+    forecasttitle.classList = "forecast_title"
+    forecasttitle.innerText = "5-Day Forecast:"
+    bodycontainer.append(forecasttitle);
+
+
+    var forecastdiv = document.createElement('div');
+    forecastdiv.classList = "forecast-weather";
+    bodycontainer.append(forecastdiv);
+
     fetch(forecastURL)
     .then(function (response) {
         response.json().then(function (data) {
             for(var i=1; i<= 5; i++){
                 
                 var datediv = document.createElement('div');
-                datediv.classList = 'col-2 bg-dark m-2 text-light';
+                datediv.classList = 'bg-dark m-2 text-light w-25';
                 forecastdiv.appendChild(datediv);
 
 
@@ -201,18 +250,12 @@ function displayforecast (data) {
     })
 
 
-    var forecasttitle = document.createElement('h3');
-    forecasttitle.textContent = "5-Day Forecast:"
 
-    title.append(forecasttitle);
+
 
   }
 
    
-
- 
-     
-
 
 
 

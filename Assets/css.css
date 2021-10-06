@@ -11,8 +11,13 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
+.forecast-weather {
+    display: flex;
+}
+
 h3 {
     font-size: 1.5rem;
+    display: block;
     
 }
 
@@ -22,9 +27,7 @@ h4 {
 }
 
 
-.cardholders {
-    display: flex;
-}
+
 
 ul {
     padding: 0;
