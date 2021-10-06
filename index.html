@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Raleway:wght@200&family=Yaldevi&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./Assets/css.css">
+    
     <title>Whether Dashboard</title>
 
 </head>
@@ -22,8 +23,8 @@
 <body>
     <header>
         <nav class="navbar navbar-light bg-success bg-opacity-75">
-            <div class="container-fluid">
-              <h1 class="text-white" style="text-align: center;">Weather Dashboard</h1>
+            <div class="container-fluid d-flex justify-content-center">
+              <h1 class="text-white">Weather Dashboard</h1>
             </div>
         </nav>
     </header>
@@ -32,25 +33,31 @@
     <!-- side bar for search -->
     
     <div class="container search-container" style="width: 30%;">
+
         <div class="row input-group d-block" >
             <label class="col" for="form-control"> <h3>Search for a City: </h3></label>
             <input type="text" class="form-control col m-1" style="width: 100%;">
             <button class="btn btn-outline-secondary col m-1" type="button" id="button-addon2">Search</button>
-        </div>
+
+          </div>
+
     </div>
 
     <div class="container body-container" style="width: 70%;">
-
+      <div class="today-weather"></div>
+      <div class="row forecast-weather">
+        <div class="title col-12 m-2"></div>
+        <div class="col-2 day1 bg-dark m-2 text-light"></div>
+        <div class="col-2 day2 bg-dark m-2 text-light"></div>
+        <div class="col-2 day3 bg-dark m-2 text-light"></div>
+        <div class="col-2 day4 bg-dark m-2 text-light"></div>
+        <div class="col-2 day5 bg-dark m-2 text-light"></div>
+      </div>
     </div>
     
-    <!-- side bar for list : javascript-->
 
-    <!-- main board -->
-
-    <!-- main card placeholder -->
  
     </main>
-
 
 
 
