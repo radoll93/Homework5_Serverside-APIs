@@ -13,6 +13,6 @@
 5. The weather dashboard link is below.
 https://radoll93.github.io/Homework6_Serverside-APIs/
 
-![Weather dashboard](./assets/Weather_Dashboard.gif)
+![Weather dashboard](./Assets/Weather_Dashboard.gif)
 
 
