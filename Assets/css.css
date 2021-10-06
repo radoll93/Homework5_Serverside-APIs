@@ -25,3 +25,19 @@ h4 {
 .cardholders {
     display: flex;
 }
+
+ul {
+    padding: 0;
+}
+
+.citylist {
+    list-style-type: none;
+    background-color: gray;
+    padding: 5px;
+    margin: 2px;
+    text-align: center;
+    color: white;
+    position: relative;
+    left: -100;
+
+}

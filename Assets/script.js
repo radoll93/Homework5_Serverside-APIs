@@ -1,4 +1,4 @@
-//input city -> submit, api
+//inpu city -> submit, api
 
 var searchbtn = $('.btn');
 var formEl = $('.form-control');
@@ -8,6 +8,7 @@ var searchcontainer = document.querySelector('.search-container');
 var forecastdiv = document.querySelector('.forecast-weather');
 var apikey = "39aadcf6aa3fa19cfd9358b380b3f26c";
 var cities = [];
+
 
 
 
@@ -22,7 +23,8 @@ searchbtn.on("click", function citySubmit (event) {
 
         weather(city);
         formEl.val('');
-    }
+        return;
+    } 
 
 })
 
@@ -31,17 +33,45 @@ searchbtn.on("click", function citySubmit (event) {
 
 function makelist () {
     var ulEl = document.createElement('ul');
-    var searchlist = document.createElement('li');
 
-    searchlist.innerHTML = JSON.parse(localStorage.getItem("cities"));
+    var savecities = JSON.parse(localStorage.getItem("cities")); 
+    if(savecities !== null) {
+        cities = savecities;
+    }
+
 
     searchcontainer.append(ulEl);
-    ulEl.append(searchlist);
-    console.log(searchlist);
+
+
+    for (var i=0; i<cities.length; i++){
+
+        var citieslist = savecities[i];
+        var citieslistBtn = document.createElement('button');
+        citieslistBtn.classList = 'city-btn btn btn-outline-secondary col my-1 bg-dark text-white';
+        citieslistBtn.innerText = citieslist;
+
+        ulEl.append(citieslistBtn);
+        
+    }
 
 }
 
 makelist();
+
+var citybtn = $('.city-btn');
+
+citybtn.on("click", function cityClick (event) {
+    event.preventDefault();  
+
+    var city = $(this)[0].innerText;
+
+    if(city) {
+        weather(city);
+        formEl.val('');
+        return;
+    }
+})
+
 
 //today's weather API & display 
 
@@ -90,7 +120,6 @@ function displayWeather(data) {
                 uvindex.setAttribute('style', 'background-color:red')
             }
 
-            console.log(data);
         })
     })
 
